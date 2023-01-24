@@ -125,6 +125,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Desktop Store Files
 .DS_Store
 locationAPI/.DS_Store
 locationAPI/maps/.DS_Store
