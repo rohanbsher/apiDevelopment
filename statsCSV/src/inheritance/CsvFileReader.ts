@@ -1,8 +1,9 @@
 import fs from 'fs';
 
+// Utilizing a tuple to structure data 
 
-export class CsvFileReader {
-	data: string[][] = [];
+export abstract class CsvFileReader<T> {
+	data: T[] = [];
 
 	constructor(public filename: string) { }
 
@@ -11,6 +12,9 @@ export class CsvFileReader {
 			encoding: 'utf-8'
 		}).split('\n').map((row: string): string[] => {
 			return row.split(',')
-		});
+		}).map(this.mapRow);
 	}
+
+	abstract mapRow(row: string[]): T;
+
 }
