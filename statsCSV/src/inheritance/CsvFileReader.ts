@@ -1,20 +1,20 @@
-import fs from 'fs';
+// import fs from 'fs';
 
-// Utilizing a tuple to structure data 
+// // Utilizing a tuple to structure data 
 
-export abstract class CsvFileReader<T> {
-	data: T[] = [];
+// export abstract class CsvFileReader<T> {
+// 	data: T[] = [];
 
-	constructor(public filename: string) { }
+// 	constructor(public filename: string) { }
 
-	read(): void {
-		this.data = fs.readFileSync(this.filename, {
-			encoding: 'utf-8'
-		}).split('\n').map((row: string): string[] => {
-			return row.split(',')
-		}).map(this.mapRow);
-	}
+// 	read(): void {
+// 		this.data = fs.readFileSync(this.filename, {
+// 			encoding: 'utf-8'
+// 		}).split('\n').map((row: string): string[] => {
+// 			return row.split(',')
+// 		}).map(this.mapRow);
+// 	}
 
-	abstract mapRow(row: string[]): T;
+// 	abstract mapRow(row: string[]): T;
 
-}
+// }
