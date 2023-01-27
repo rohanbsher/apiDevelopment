@@ -1,61 +1,35 @@
-import axios, { AxiosResponse } from 'axios';
+import { Model } from './Model';
+import { Attributes } from './Attributes';
+import { Eventing } from './Eventing';
+import { ApiSync } from './ApiSync';
 
-interface UserProps	{
+export interface UserProps {
 	// Optional properties
 	id?: number; // indicates the object is saved to the server
 	name?: string;
 	age?: number;
 }
 
-// function that takes no arguments and returns nothing
-type Callback = () => void;
+const rootUrl = 'http://localhost:3000/users';
 
-export class User {
+export class User extends Model<UserProps> {
+	// public events: Eventing = new Eventing();
+	// public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
+	// public attributes: Attributes<UserProps>;
 
-	// events is an object with different keys of type string and they 
-	// point to values of Callback array
-	events: { [key: string]: Callback[] } = {};
+	// constructor(attrs: UserProps) {
+	// 	this.attributes = new Attributes<UserProps>(attrs);
+	// }
 
-	constructor(private data: UserProps) {	}
-
-	// Type union : can return either string or number
-	get(propName: string): string | number {
-		return this.data[propName];
+	static buildUser(attrs: UserProps): User {
+		return new User(
+			new Attributes<UserProps>(attrs),
+			new Eventing(),
+			new ApiSync<UserProps>(rootUrl)
+		);
 	}
 
-	set(update: UserProps): void {
-		// Copy all properties from update to this.data 
-		// and overwrite any existing properties
-		Object.assign(this.data, update);
-	}
-
-
-	// calls type alias on callback
-	on(eventName: string, callback: Callback): void {
-		// this.events[eventName] // callback [] or undefined
-		const handlers = this.events[eventName] || [];
-		handlers.push(callback);
-		this.events[eventName] = handlers;
-	}
-
-	trigger(eventName: string): void {
-		const handlers = this.events[eventName];
-
-		if (!handlers || handlers.length === 0) {
-			return;
-		}
-
-		handlers.forEach(callback => {
-			callback();
-		})
-	}
-
-	fetch(): void {
-		axios.get(`http://localhost:3000/users/${this.get('id')}`)
-			.then((response: AxiosResponse): void => {
-				this.set(response.data);
-			});
-	}
 }
+
 
 
