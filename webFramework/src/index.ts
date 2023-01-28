@@ -1,4 +1,31 @@
-import { User } from './models/User';
+// import { User, UserProps } from './models/User';
+// import { Collection } from './models/Collection';
+import { UserForm } from './views/UserForm';
+
+const userForm = new UserForm(document.getElementById('root') as HTMLElement);
+userForm.render();
+
+
+
+
+
+
+
+
+
+// const collection = new Collection<User, UserProps>(
+// 	'http://localhost:3000/users', 
+// 	(json: UserProps) => User.buildUser(json)
+// );
+
+// const collection = User.buildUserCollection();
+
+// collection.on('change', () => {
+// 	console.log(collection);
+// });
+
+// collection.fetch();
+
 
 
 
@@ -7,14 +34,14 @@ import { User } from './models/User';
 // const user = new User({ id: 1, name: 'Rahul', age: 24 });
 // console.log(user.get('name'))
 
-const user = User.buildUser({ id: 2, name: "Chelsey bazzle" });
+// const user = User.buildUser({ id: 2, name: "Chelsey bazzle" });
 
-user.on('save', () => {
-	console.log(user.get('name') + ' was saved');
-});
+// user.on('save', () => {
+// 	console.log(user.get('name') + ' was saved');
+// });
 
 // user.fetch();
-user.save();
+// user.save();
 // user.get
 
 // user.on('change', () => {
