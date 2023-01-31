@@ -1,7 +1,13 @@
 import axios from 'axios';
+import * as dotenv from "dotenv";
 
+dotenv.config({ path: __dirname+'/.env' });
+
+
+const apiKey = process.env.WEATHER_API_KEY;
+const apiUrl = process.env.WEATHER_API_URL;
 const city = "atlanta"
-const weatherUrl = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=metric&appid=633548baa1a70c5a65f44788038b589e"
+const weatherUrl = apiUrl+city+"&units=metric&appid="+apiKey;	
 
 interface Weather {
 	coord: {
